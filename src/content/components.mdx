@@ -4,9 +4,13 @@ description: Use focused MDX components to make complex instructions easier to f
 ---
 
 Use a component when it clarifies a choice, sequence, status, or optional detail.
-Plain prose should remain the default.
+Plain prose is always the default. If removing a component would not lose
+information or force the reader to re-read a sentence, leave it as prose.
 
-## Show equivalent paths
+## Tabs
+
+Wrap parallel alternatives in `<Tabs>` so the reader picks one path and ignores
+the rest. Each `<Tab>` needs a `title` prop for its label.
 
 <Tabs>
   <Tab title="npm">
@@ -26,20 +30,89 @@ Plain prose should remain the default.
   </Tab>
 </Tabs>
 
-## Reveal detail when it matters
+Tabs are keyboard-navigable with arrow keys. Use them for equivalent
+commands, language variants, or OS-specific instructions. Avoid tabs when the
+choices are not parallel or when every option needs to be read.
+
+## Accordion
+
+Use `<Accordion>` to tuck away optional detail that would interrupt the main
+flow. The `title` prop is required. You can also set `description` for a
+subtitle, `icon` for a leading icon, and `defaultOpen` to expand the panel on
+load.
 
 <Accordion title="Where should advanced configuration live?">
   Keep the recommended path visible. Move optional detail here so new readers
   can continue without hiding information from experienced users.
 </Accordion>
 
-## Communicate status
+Group related accordions with `<AccordionGroup>`. In single mode (the default)
+only one item stays open at a time.
+
+<AccordionGroup>
+  <Accordion title="First question">
+    Answer to the first question.
+  </Accordion>
+  <Accordion title="Second question">
+    Answer to the second question.
+  </Accordion>
+</AccordionGroup>
+
+Accordion content is always in the page HTML, so search engines and in-page
+find still reach it when collapsed.
+
+## Badge
+
+Mark a status or category inline with `<Badge>`. Set `variant` to communicate
+intent.
 
 <Badge variant="success">Stable</Badge>{" "}
 <Badge variant="warning">Beta</Badge>{" "}
-<Badge variant="info">New</Badge>
+<Badge variant="info">New</Badge>{" "}
+<Badge variant="danger">Deprecated</Badge>{" "}
+<Badge variant="outline">Draft</Badge>
+
+Available variants: `default`, `success`, `warning`, `danger`, `info`, and
+`outline`. For a specific hue instead of a semantic variant, use the `color`
+prop with a named color such as `blue`, `purple`, or `amber`. Badges also
+accept `size` (`xs`, `sm`, `md`, `lg`) and `icon` for a leading icon.
+
+## Callouts
+
+Callouts draw attention to a single important point. Six types are available,
+each rendered as a standalone component.
 
 <Tip>
-  Choose the lightest component that improves comprehension. A page should not
-  look like a component catalogue unless that is its purpose.
+  Tips suggest a better way to do something the reader already knows how to do.
 </Tip>
+
+<Info>
+  Info callouts add context that is useful but not required to continue.
+</Info>
+
+<Warning>
+  Warnings flag a step where a mistake could cause unexpected behavior.
+</Warning>
+
+<Check>
+  Check callouts confirm that a step succeeded or a prerequisite is met.
+</Check>
+
+<Danger>
+  Danger callouts highlight actions that risk data loss or security exposure.
+</Danger>
+
+<Note>
+  Notes provide supplementary information that does not fit another type.
+</Note>
+
+Every callout accepts an optional `title` prop for a bold heading and an `icon`
+prop to replace the default glyph. Use the type that matches the intent so the
+visual weight stays proportional to the severity.
+
+## When to prefer plain prose
+
+Components add visual complexity. Before reaching for one, check whether the
+content actually presents a choice (Tabs), hides optional depth (Accordion),
+labels a status (Badge), or warns the reader (callout). If it does none of
+those, a paragraph or a list is clearer.

@@ -42,8 +42,26 @@ components:
     bearerAuth:
       type: http
       scheme: bearer
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-Api-Key
 security:
   - bearerAuth: []
+```
+
+To pre-fill credentials in the playground so readers can send authenticated
+requests without manual entry, add an `apiPlayground.credentials` object to
+`docs.json` keyed by the security scheme name:
+
+```json
+{
+  "apiPlayground": {
+    "credentials": {
+      "bearerAuth": "YOUR_DEFAULT_TOKEN"
+    }
+  }
+}
 ```
 
 <Tip>

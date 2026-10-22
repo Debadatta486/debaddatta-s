@@ -1,0 +1,78 @@
+---
+title: Validate an API response
+description: Add Postman post-response scripts that verify the status code and fields returned by JSONPlaceholder.
+---
+
+After completing the [quickstart](/quickstart), you have a working GET request to `https://jsonplaceholder.typicode.com/posts/1`. This guide adds automated checks so you can re-run the request and confirm the response is correct every time.
+
+## Before you begin
+
+- Complete the [quickstart](/quickstart) so the GET request to `/posts/1` is saved in Postman.
+- No extra tools or accounts are needed.
+
+## Add post-response scripts
+
+Open the saved request in Postman, then select the **Scripts > Post-response** tab.
+
+<Steps>
+  <Step title="Check the status code">
+    Paste the following script into the post-response editor:
+
+    ```js
+    pm.test("Status code is 200", function () {
+      pm.response.to.have.status(200);
+    });
+    ```
+
+    This fails the test run if the server returns anything other than 200.
+  </Step>
+  <Step title="Check that userId and id are present">
+    Add a second test below the first:
+
+    ```js
+    pm.test("Response has userId and id", function () {
+      const json = pm.response.json();
+      pm.expect(json).to.have.property("userId");
+      pm.expect(json).to.have.property("id");
+    });
+    ```
+  </Step>
+  <Step title="Check that title and body are non-empty strings">
+    Add a third test:
+
+    ```js
+    pm.test("title and body are non-empty strings", function () {
+      const json = pm.response.json();
+      pm.expect(json.title).to.be.a("string").and.to.have.lengthOf.at.least(1);
+      pm.expect(json.body).to.be.a("string").and.to.have.lengthOf.at.least(1);
+    });
+    ```
+  </Step>
+  <Step title="Run the request">
+    Click **Send**. The **Test Results** tab at the bottom of the response panel shows three passing tests.
+  </Step>
+</Steps>
+
+## What each test checks
+
+| Test name | What it verifies |
+| --- | --- |
+| Status code is 200 | The server returned HTTP 200, confirming the resource exists and the request succeeded. |
+| Response has userId and id | The JSON body contains both identifying fields as top-level properties. |
+| title and body are non-empty strings | Both content fields are present, are strings, and are not empty. |
+
+## Troubleshooting
+
+| Symptom | Cause | Fix |
+| --- | --- | --- |
+| "Status code is 200" fails with 404 | The URL path changed or contains a typo. | Confirm the URL is exactly `https://jsonplaceholder.typicode.com/posts/1`. |
+| "Response has userId and id" fails | The response is not valid JSON, or the endpoint returned an error object. | Check the raw response body in the **Body** tab. If it is HTML, the URL may be wrong. |
+| "title and body are non-empty strings" fails | A field is missing or returned as `null`. | Verify you are requesting a post ID between 1 and 100. IDs outside that range return an empty object. |
+| Tests do not appear after clicking Send | The script is in the wrong tab. | Move the code to **Scripts > Post-response** (not Pre-request). |
+
+## Next steps
+
+Try running the same checks against different endpoints:
+
+- **List all posts** at `https://jsonplaceholder.typicode.com/posts`, then assert that the response is an array.
+- **Get a user** at `https://jsonplaceholder.typicode.com/users/1`, then check for `name`, `username`, and `email` fields.

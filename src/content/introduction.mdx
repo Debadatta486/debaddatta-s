@@ -1,45 +1,43 @@
 ---
 title: Introduction
-description: Give readers a clear path from their first question to a result they can verify.
+description: Learn to make and validate requests to the JSONPlaceholder REST API.
 mode: home
 ---
 
 <Hero
-  title="Build documentation around the reader"
-  subtitle="Start with a useful first result, organize what follows, and publish every format from one reviewable source."
-  primaryLabel="Get started"
+  title="Get started with the JSONPlaceholder API"
+  subtitle="Learn how to retrieve sample resources, inspect JSON responses, and validate API behavior using Postman."
+  primaryLabel="Make your first request"
   primaryHref="/quickstart"
-  secondaryLabel="Publish your docs"
-  secondaryHref="/guides/create-a-site"
+  secondaryLabel="Validate a response"
+  secondaryHref="/guides/validate-response"
 />
 
-## Build the reader journey
+## Explore the documentation
 
-Begin with the task that brings most readers to your documentation, then make
-the next useful step obvious.
+Pick a starting point below depending on what you want to do next.
 
 <CardGroup cols="2">
-  <Card title="Write your quickstart" icon="party-horn" href="/quickstart">
-    Turn prerequisites, setup, one realistic task, and verification into a short path.
+  <Card title="Make your first request" icon="code" href="/quickstart">
+    Send a GET request to retrieve a sample post and inspect the response.
   </Card>
-  <Card title="Organize your navigation" icon="grid-round" href="/customization">
-    Group related tasks and references around how people use your product.
+  <Card title="Validate an API response" icon="check-circle" href="/guides/validate-response">
+    Use Postman to check the HTTP status code and validate response fields.
   </Card>
-  <Card title="Document your API" icon="code-simple" href="/api">
-    Replace `openapi.yaml` to publish browsable endpoint docs with a live playground.
+  <Card title="Explore API resources" icon="book-open" href="/api/introduction">
+    Learn about the available resources and their endpoints.
   </Card>
-  <Card title="Learn the Thally workflow" icon="wrench" href="/guides/create-a-site">
-    Create, publish, and update sites from the Cloud dashboard, the CLI, or your AI tools.
+  <Card title="Understand the examples" icon="info" href="/customization">
+    Review the tools and conventions used throughout these guides.
   </Card>
 </CardGroup>
 
-## Publish from one source
+## About JSONPlaceholder
 
-Thally turns the same reviewed content into HTML, search, agent discovery files,
-Markdown mirrors, and a read-only MCP surface — so people and AI tools read the
-same, current answer. Add only the locales your readers need.
+JSONPlaceholder is a public fake REST API for testing and prototyping. It provides sample resources such as posts, comments, albums, photos, todos, and users.
 
-<Note type="info" title="Start with the product, not the template">
-  Replace this page with the questions, terminology, and workflows your readers
-  already use. Keep `docs.json` focused on the path between those tasks.
+The examples in this documentation use the /posts resource to demonstrate HTTP requests and response validation without requiring an API key.
+
+<Note type="info" title="Test API only">
+  JSONPlaceholder is intended for testing and prototyping. Do not use it to store production data or rely on it as a production backend.
 </Note>
