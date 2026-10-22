@@ -1,15 +1,15 @@
 ---
 title: Changelog
-description: Record product changes that alter how readers use the documented experience.
+description: What changed in each release and how it affects the way you use the docs.
 ---
 
 ## v0.1.0
 
-The first published version of this documentation.
+Initial release of the documentation site.
 
-- A task-focused introduction and quickstart
-- Browsable API documentation generated from `openapi.yaml`
-- Agent-readable discovery files and a read-only MCP endpoint
+- **Introduction and quickstart** covering project setup and first steps. See the [introduction](/introduction) and [quickstart](/quickstart) pages.
+- **Browsable API reference** generated from `openapi.yaml`, with an interactive playground for trying requests. Start at [API introduction](/api/introduction).
+- **Agent discovery endpoints** such as `/llms.txt`, `/.well-known/mcp.json`, and `/.well-known/agent-card.json` so LLM-based tools can find and read the docs programmatically.
+- **Read-only MCP endpoint** at `/api/mcp` exposing tools like `search_docs`, `read_page`, `list_pages`, and `get_api_operation`.
 
-Replace this entry with changes your readers need to understand. Lead with the
-impact, then link to the guide or reference that explains the new behavior.
+{/* Add newer entries above this comment. Use a heading for the version, summarize the user-facing impact, and link to the page that explains the new behavior. */}

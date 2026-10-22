@@ -17,14 +17,85 @@ learning a separate documentation interface.
     Group pages into task-focused tabs and groups in `docs.json`.
   </Card>
   <Card title="Choose an icon tone" icon="grid-round" iconColor="neutral">
-    Cards follow your brand accent by default — switch to neutral globally, or
+    Cards follow your brand accent by default, switch to neutral globally, or
     override one card like this one.
   </Card>
   <Card title="Add the right formats" icon="link-simple">
-    Add locales, AI features, or analytics when they serve readers — Markdown
-    mirrors and agent surfaces are already on.
+    Add locales, analytics, or other optional features when they serve readers.
   </Card>
 </CardGroup>
+
+## Site identity
+
+Open `src/data/site.ts` and set the exported `siteConfig` object. The values
+that matter most are `name`, `description`, `repoUrl`, and `links`.
+
+Two brand presets are included, `primary` (warm neutral with green and violet
+accents) and `secondary` (violet). Each preset defines full light and dark
+palettes. Switch the active preset by changing the `brandPreset` value.
+
+You can also configure `analytics` in this file (GA4, Plausible, PostHog) and
+`ogImage` settings for generated social images. Both are optional.
+
+## Navigation
+
+The `tabs` array in `docs.json` controls the sidebar. Each tab contains groups,
+and each group lists page IDs that correspond to files under `src/content/`.
+
+```json
+{
+  "tabs": [
+    {
+      "tab": "Documentation",
+      "groups": [
+        { "group": "Get started", "pages": ["introduction", "quickstart"] }
+      ]
+    }
+  ]
+}
+```
+
+Set `navigation.display` to `"tabs"` (default) or `"dropdown"` to change how
+top-level tabs appear. Use `navbar` to add a primary call-to-action button and
+header links, and `footer` to add social links and copyright text.
+
+## Theme and appearance
+
+The `theme` key in `docs.json` controls border radius, sidebar style, and tab
+appearance. Valid values are `default`, `maple`, `sharp`, and `minimal`.
+
+Set `appearance.default` to `"light"`, `"dark"`, or `"system"` (default) to
+choose the initial color scheme. Set `appearance.showToggle` to `false` to hide
+the dark mode toggle.
+
+## Icon tone and library
+
+Set `appearance.contentIcons` in `docs.json` to `"accent"` (default) or
+`"neutral"` to control how card and tile icons are colored globally. You can
+override the tone on individual cards with the `iconColor` prop.
+
+The `icons.library` key selects the icon set: `"lucide"` (default),
+`"fontawesome"`, or `"tabler"`. Icons resolve through a CDN, so no library ships
+in the Worker bundle.
+
+## Optional features
+
+All of these are configured in `docs.json`.
+
+| Feature | Key | Default | What it does |
+|---|---|---|---|
+| Markdown mirrors | `markdown.enabled` | `false` | Publishes `.md` URL mirrors of every page |
+| Locales | `i18n` | English only | Add up to 20 locales with RTL support |
+| Version switcher | `navigation.versions` | none | Links between version-specific sites |
+| Sidebar shortcuts | `navigation.shortcuts` | none | Quick links pinned to the sidebar |
+| Breadcrumbs | `breadcrumbs` | `true` | Set to `false` to hide page breadcrumbs |
+| Banner | `banner` | none | Site-wide dismissible banner |
+| Feedback widget | `feedback.thumbsRating` | `true` | Thumbs up/down rating on every page |
+| Custom fonts | `fonts.body`, `fonts.heading` | system font | Google Font families and weights |
+| Custom stylesheets | `stylesheets` | none | Local CSS files, up to 16 |
+| Redirects | `redirects` | none | Next.js redirects defined in `docs.json` |
+| SEO | `seo.indexing`, `seo.titleSeparator` | navigable pages | Control indexing scope and title format |
+| Agent surfaces | always on | n/a | `llms.txt`, MCP endpoint, agent discovery files |
 
 <Note type="info" title="Keep ownership portable">
   Content and portable settings belong in `src/content/`, `docs.json`, and

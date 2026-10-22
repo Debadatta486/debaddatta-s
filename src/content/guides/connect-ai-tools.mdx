@@ -17,34 +17,45 @@ Every published site exposes these surfaces automatically:
     one without crawling.
   </Card>
   <Card title="Markdown mirrors" icon="code-simple">
-    Add `.md` to any page URL — `/quickstart.md` — for the clean Markdown an
-    LLM ingests best.
+    When `markdown.enabled` is on in `docs.json`, add `.md` to any page URL,
+    for example `/quickstart.md`, to get clean Markdown that LLMs ingest well.
   </Card>
   <Card title="MCP endpoint" icon="wrench">
-    A read-only Model Context Protocol server at `/.well-known/mcp.json`
-    lets tools search and read the docs as structured data.
+    A read-only Model Context Protocol server card at
+    `/.well-known/mcp.json` lets tools discover and connect to the docs
+    endpoint.
   </Card>
   <Card title="Structured answers" icon="grid-round">
-    JSON and JSON-LD projections of each page keep titles, sections, and
-    code blocks intact for retrieval.
+    Append `?format=json` or `?format=ldjson` to any page URL (or send the
+    matching `Accept` header) to get a JSON or JSON-LD projection with
+    titles, sections, and code blocks intact.
   </Card>
 </CardGroup>
 
 ## Point your editor at the docs
 
-Add this site to any MCP-capable tool (Claude Code, Cursor, and others) and it
-can cite current documentation instead of guessing from training data. Most
-tools accept a one-line registration with this site's MCP endpoint URL:
+Add this site to any MCP-capable tool and it can cite current documentation
+instead of guessing from training data. The MCP endpoint is at `/api/mcp`
+(streamable HTTP, read-only, no authentication on public sites).
 
-```text
-https://your-site.thally.app/.well-known/mcp.json
+In **Claude Code**, register the server in one command:
+
+```bash
+claude mcp add --transport http docs https://your-site.thally.app/api/mcp
 ```
+
+In **Cursor**, open **Settings > MCP** and add the same URL as a new server.
+
+Once connected, the tools `search_docs`, `search_sections`, `read_page`,
+`list_pages`, `list_api_operations`, `get_api_operation`, `list_changes`, and
+`agent_readiness` are available to the model automatically.
 
 ## Hand a page to an assistant
 
-Every page's **Copy page** menu includes **Open in ChatGPT / Claude /
-Perplexity** — each opens the assistant preloaded with the page's Markdown
-URL, so answers stay grounded in what the page actually says.
+Every page's **Copy page** menu includes **Open in ChatGPT**, **Open in
+Claude**, and **Open in Perplexity**. Each opens the assistant preloaded with
+the page's Markdown URL, so answers stay grounded in what the page actually
+says.
 
 <Note type="info" title="Measure it">
   The Analytics page in Thally Cloud separates human visits from AI-tool
